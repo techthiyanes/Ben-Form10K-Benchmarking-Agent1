@@ -220,7 +220,6 @@ with st.chat_message("assistant"):
     st.info(sample_question_2)
     st.info(sample_question_3)
     st.write(f'''🎯 **Complex & Benchmarking Queries:**''')
-    st.info(sample_question_4)
     st.info(sample_question_5)
     st.info(sample_question_6)
 
