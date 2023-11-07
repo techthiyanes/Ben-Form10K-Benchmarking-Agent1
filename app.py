@@ -86,29 +86,29 @@ def preparing_benchmarking_agent():
     meta_2020_docs_store = FAISS.load_local(r'data/datastores/meta_2020', embeddings)
 
     # Create QA retrieval chains for various companies and years
-    apple_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2022_docs_store.as_retriever(search_kwargs={'k':6}))
-    apple_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2021_docs_store.as_retriever(search_kwargs={'k':6}))
-    apple_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2020_docs_store.as_retriever(search_kwargs={'k':6}))
+    apple_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2022_docs_store.as_retriever(search_kwargs={'k':10}))
+    apple_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2021_docs_store.as_retriever(search_kwargs={'k':10}))
+    apple_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2020_docs_store.as_retriever(search_kwargs={'k':10}))
 
 
-    microsoft_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2022_docs_store.as_retriever(search_kwargs={'k':6}))
-    microsoft_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2021_docs_store.as_retriever(search_kwargs={'k':6}))
-    microsoft_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2020_docs_store.as_retriever(search_kwargs={'k':6}))
+    microsoft_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2022_docs_store.as_retriever(search_kwargs={'k':10}))
+    microsoft_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2021_docs_store.as_retriever(search_kwargs={'k':10}))
+    microsoft_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2020_docs_store.as_retriever(search_kwargs={'k':10}))
 
 
-    amazon_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2022_docs_store.as_retriever(search_kwargs={'k':6}))
-    amazon_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2021_docs_store.as_retriever(search_kwargs={'k':6}))
-    amazon_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2020_docs_store.as_retriever(search_kwargs={'k':6}))
+    amazon_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2022_docs_store.as_retriever(search_kwargs={'k':10}))
+    amazon_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2021_docs_store.as_retriever(search_kwargs={'k':10}))
+    amazon_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2020_docs_store.as_retriever(search_kwargs={'k':10}))
 
 
-    meta_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2022_docs_store.as_retriever(search_kwargs={'k':6}))
-    meta_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2021_docs_store.as_retriever(search_kwargs={'k':6}))
-    meta_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2020_docs_store.as_retriever(search_kwargs={'k':6}))
+    meta_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2022_docs_store.as_retriever(search_kwargs={'k':10}))
+    meta_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2021_docs_store.as_retriever(search_kwargs={'k':10}))
+    meta_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2020_docs_store.as_retriever(search_kwargs={'k':10}))
 
 
-    alphabet_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2022_docs_store.as_retriever(search_kwargs={'k':6}))
-    alphabet_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2021_docs_store.as_retriever(search_kwargs={'k':6}))
-    alphabet_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2020_docs_store.as_retriever(search_kwargs={'k':6}))
+    alphabet_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2022_docs_store.as_retriever(search_kwargs={'k':10}))
+    alphabet_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2021_docs_store.as_retriever(search_kwargs={'k':10}))
+    alphabet_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2020_docs_store.as_retriever(search_kwargs={'k':10}))
 
     # Define the tools (queries against different document stores)
     tools = [
