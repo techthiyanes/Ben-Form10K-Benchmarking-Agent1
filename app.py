@@ -59,7 +59,7 @@ with st.sidebar:
 def preparing_benchmarking_agent():
     # Initialize embeddings and chat models
     embeddings = OpenAIEmbeddings()
-    llm = ChatOpenAI(temperature=0, model="gpt-4-1106-preview", streaming=True)
+    llm = ChatOpenAI(temperature=0, model="gpt-4", streaming=True)
 
     # Load local FAISS document stores for multiple companies and years
     apple_2022_docs_store = FAISS.load_local(r'data/datastores/apple_2022', embeddings)
