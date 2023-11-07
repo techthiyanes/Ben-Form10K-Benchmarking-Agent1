@@ -12,7 +12,7 @@ from PIL import Image
 
 # Streamlit page configuration
 st.set_page_config(page_title="Form 10K x Benchmarking", page_icon="🦜")
-st.title("Ben - Form 10K  x  Benchmarking\n\n**powered by new GPT-4 Turbo**")
+st.title("Ben - Form 10K  x  Benchmarking\n\n**powered by GPT-4 Turbo**")
 
 
 # Custom CSS for Streamlit using Google Fonts
