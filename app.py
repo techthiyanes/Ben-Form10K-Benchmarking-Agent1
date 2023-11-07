@@ -20,7 +20,7 @@ st.markdown(
     """
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500&family=Literata:opsz,wght@7..72,500&display=swap');
-    html, body, textarea , [class*="css"] {
+    h1, h2, h3, h4, h5, h6, [class^="st-"] {
 			font-family: 'Inter Tight', sans-serif !important;
 			}
     </style>
