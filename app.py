@@ -234,4 +234,4 @@ if prompt := st.chat_input(placeholder="What is the net sales of Apple in 2022?"
         st_cb = StreamlitCallbackHandler(st.container(), expand_new_thoughts=True)
         response = agent.run(prompt, callbacks=[st_cb])
         st.session_state.messages.append({"role": "assistant", "content": response})
-        st.success(response)
+        st.markdown(response)
