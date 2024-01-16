@@ -1,13 +1,17 @@
 # Import required modules from the langchain library and other packages
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_community.vectorstores import FAISS
 from langchain.chains import  RetrievalQA
-from langchain.chat_models import ChatOpenAI
+# from langchain.chat_models import ChatOpenAI
 import os
-from langchain.agents import initialize_agent, Tool
-from langchain.agents import AgentType
+# from langchain.agents import initialize_agent, Tool
+# from langchain.agents import AgentType
 import streamlit as st
-from langchain.callbacks import StreamlitCallbackHandler
+from langchain_community.callbacks import StreamlitCallbackHandler
+
+from langchain import hub
+from langchain.agents import AgentExecutor, Tool, create_react_agent
+from langchain_core.runnables import RunnableConfig
 from PIL import Image
 
 # Streamlit page configuration
@@ -115,86 +119,85 @@ def preparing_benchmarking_agent():
         Tool(
             name="Apple Form 10K 2022",
             func=apple_2022_qa.run,
-            description="useful when you need to answer from Apple 2022",
+            description="useful when you need to answer from Apple 2022. Input should be a search friendly query",
         ),
         Tool(
             name="Apple Form 10K 2021",
             func=apple_2021_qa.run,
-            description="useful when you need to answer from Apple 2021",
+            description="useful when you need to answer from Apple 2021. Input should be a search friendly query",
         ),
         Tool(
             name="Apple Form 10K 2020",
             func=apple_2020_qa.run,
-            description="useful when you need to answer from Apple 2020",
+            description="useful when you need to answer from Apple 2020. Input should be a search friendly query",
         ),
         Tool(
             name="Microsoft Form 10K 2022",
             func=microsoft_2022_qa.run,
-            description="useful when you need to answer from Microsoft 2022",
+            description="useful when you need to answer from Microsoft 2022. Input should be a search friendly query",
         ),
         Tool(
             name="Microsoft Form 10K 2021",
             func=microsoft_2021_qa.run,
-            description="useful when you need to answer from Microsoft 2021",
+            description="useful when you need to answer from Microsoft 2021. Input should be a search friendly query",
         ),
         Tool(
             name="Microsoft Form 10K 2020",
             func=microsoft_2020_qa.run,
-            description="useful when you need to answer from Microsoft 2020",
+            description="useful when you need to answer from Microsoft 2020. Input should be a search friendly query",
         ),
         Tool(
             name="Meta Form 10K 2022",
             func=meta_2022_qa.run,
-            description="useful when you need to answer from Meta 2022",
+            description="useful when you need to answer from Meta 2022. Input should be a search friendly query",
         ),
         Tool(
             name="Meta Form 10K 2021",
             func=meta_2021_qa.run,
-            description="useful when you need to answer from Meta 2021",
+            description="useful when you need to answer from Meta 2021. Input should be a search friendly query",
         ),
         Tool(
             name="Meta Form 10K 2020",
             func=meta_2020_qa.run,
-            description="useful when you need to answer from Meta 2020",
+            description="useful when you need to answer from Meta 2020. Input should be a search friendly query",
         ),
         Tool(
             name="Alphabet Form 10K 2022",
             func=alphabet_2022_qa.run,
-            description="useful when you need to answer from Alphabet or Google 2022",
+            description="useful when you need to answer from Alphabet or Google 2022. Input should be a search friendly query",
         ),
         Tool(
             name="Alphabet Form 10K 2021",
             func=alphabet_2021_qa.run,
-            description="useful when you need to answer from Alphabet or Google 2021",
+            description="useful when you need to answer from Alphabet or Google 2021. Input should be a search friendly query",
         ),
         Tool(
             name="Alphabet Form 10K 2020",
             func=alphabet_2020_qa.run,
-            description="useful when you need to answer from Alphabet or Google 2020",
+            description="useful when you need to answer from Alphabet or Google 2020. Input should be a search friendly query",
         ),
         Tool(
             name="Amazon Form 10K 2022",
             func=amazon_2022_qa.run,
-            description="useful when you need to answer from Amazon 2022",
+            description="useful when you need to answer from Amazon 2022. Input should be a search friendly query",
         ),
         Tool(
             name="Amazon Form 10K 2021",
             func=amazon_2021_qa.run,
-            description="useful when you need to answer from Amazon 2021",
+            description="useful when you need to answer from Amazon 2021. Input should be a search friendly query",
         ),
         Tool(
             name="Amazon Form 10K 2020",
             func=amazon_2020_qa.run,
-            description="useful when you need to answer from Amazon 2020",
+            description="useful when you need to answer from Amazon 2020. Input should be a search friendly query",
         ),
     ]
 
 
-    # Construct the agent. We will use the default agent type here.
-    # See documentation for a full list of options.
-    return initialize_agent(
-        tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
-    )
+    prompt = hub.pull("hwchase17/react")
+    agent = create_react_agent(llm, tools, prompt)
+    agent_executor = AgentExecutor(agent=agent, tools=tools)
+    return agent_executor
 
 # Initialize the agent
 agent = preparing_benchmarking_agent()
@@ -226,12 +229,14 @@ with st.chat_message("assistant"):
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
     
-if prompt := st.chat_input(placeholder="What is the net sales of Apple in 2022?"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
+if input_prompt := st.chat_input(placeholder="What is the net sales of Apple in 2022?"):
+    st.session_state.messages.append({"role": "user", "content": input_prompt})
+    st.chat_message("user").write(input_prompt)
     
     with st.chat_message("assistant"):
-        st_cb = StreamlitCallbackHandler(st.container(), expand_new_thoughts=True)
-        response = agent.run(prompt, callbacks=[st_cb])
-        st.session_state.messages.append({"role": "assistant", "content": response})
-        st.markdown(response)
+        st_callback = StreamlitCallbackHandler(st.container(), expand_new_thoughts=True)
+        cfg = RunnableConfig()
+        cfg["callbacks"] = [st_callback]
+        answer = agent.invoke({"input": input_prompt}, cfg)
+        st.session_state.messages.append({"role": "assistant", "content": answer['output']})
+        st.markdown(answer['output'])
