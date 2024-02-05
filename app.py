@@ -13,6 +13,8 @@ from langchain import hub
 from langchain.agents import AgentExecutor, Tool, create_react_agent
 from langchain_core.runnables import RunnableConfig
 from PIL import Image
+from langchain.schema import SystemMessage
+from langchain_core.prompts import PromptTemplate
 
 # Streamlit page configuration
 st.set_page_config(page_title="Form 10K x Benchmarking", page_icon="🦜")
@@ -88,31 +90,39 @@ def preparing_benchmarking_agent():
     meta_2022_docs_store = FAISS.load_local(r'data/datastores/meta_2022', embeddings)
     meta_2021_docs_store = FAISS.load_local(r'data/datastores/meta_2021', embeddings)
     meta_2020_docs_store = FAISS.load_local(r'data/datastores/meta_2020', embeddings)
+    
+    template = """Use the following pieces of context to answer the question at the end. Your answer should be detailed, high quality, factually correct. Use bullet points, markdown table wherever necessary.
+    If you don't know the answer, just say that you don't know, don't try to make up an answer. 
+    {context}
+    Question: {question}
+    Helpful Answer:"""
+    
+    QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
 
     # Create QA retrieval chains for various companies and years
-    apple_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2022_docs_store.as_retriever(search_kwargs={'k':10}))
-    apple_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2021_docs_store.as_retriever(search_kwargs={'k':10}))
-    apple_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2020_docs_store.as_retriever(search_kwargs={'k':10}))
+    apple_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2022_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    apple_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2021_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    apple_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=apple_2020_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
 
 
-    microsoft_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2022_docs_store.as_retriever(search_kwargs={'k':10}))
-    microsoft_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2021_docs_store.as_retriever(search_kwargs={'k':10}))
-    microsoft_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2020_docs_store.as_retriever(search_kwargs={'k':10}))
+    microsoft_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2022_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    microsoft_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2021_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    microsoft_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=microsoft_2020_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
 
 
-    amazon_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2022_docs_store.as_retriever(search_kwargs={'k':10}))
-    amazon_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2021_docs_store.as_retriever(search_kwargs={'k':10}))
-    amazon_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2020_docs_store.as_retriever(search_kwargs={'k':10}))
+    amazon_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2022_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    amazon_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2021_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    amazon_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=amazon_2020_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
 
 
-    meta_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2022_docs_store.as_retriever(search_kwargs={'k':10}))
-    meta_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2021_docs_store.as_retriever(search_kwargs={'k':10}))
-    meta_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2020_docs_store.as_retriever(search_kwargs={'k':10}))
+    meta_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2022_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    meta_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2021_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    meta_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=meta_2020_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
 
 
-    alphabet_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2022_docs_store.as_retriever(search_kwargs={'k':10}))
-    alphabet_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2021_docs_store.as_retriever(search_kwargs={'k':10}))
-    alphabet_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2020_docs_store.as_retriever(search_kwargs={'k':10}))
+    alphabet_2022_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2022_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    alphabet_2021_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2021_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
+    alphabet_2020_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=alphabet_2020_docs_store.as_retriever(search_kwargs={'k':10}), chain_type_kwargs={"prompt": QA_CHAIN_PROMPT})
 
     # Define the tools (queries against different document stores)
     tools = [
@@ -195,6 +205,28 @@ def preparing_benchmarking_agent():
 
 
     prompt = hub.pull("hwchase17/react")
+    agent_prompt_template = '''Write a detailed, high quality, factually correct answer for the question as best as you can. Present you response in bullets, markdown table whenever applicable.
+    You have access to the following tools:
+	
+	{tools}
+	
+	Use the following format:
+	
+	Question: the input question you must answer
+	Thought: you should always think about what to do
+	Action: the action to take, should be one of [{tool_names}]
+	Action Input: the input to the action
+	Observation: the result of the action
+	... (this Thought/Action/Action Input/Observation can repeat N times)
+	Thought: I now know the final answer
+	Final Answer: the final answer to the original input question
+	
+	Begin!
+	
+	Question: {input}
+	Thought:{agent_scratchpad}'''
+    
+    prompt = PromptTemplate.from_template(agent_prompt_template)
     agent = create_react_agent(llm, tools, prompt)
     agent_executor = AgentExecutor(agent=agent, tools=tools)
     return agent_executor
