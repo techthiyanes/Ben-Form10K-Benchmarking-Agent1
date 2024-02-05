@@ -91,7 +91,7 @@ def preparing_benchmarking_agent():
     meta_2021_docs_store = FAISS.load_local(r'data/datastores/meta_2021', embeddings)
     meta_2020_docs_store = FAISS.load_local(r'data/datastores/meta_2020', embeddings)
     
-    template = """Use the following pieces of context to answer the question at the end. Your answer should be comprehensive, detailed, deep, insighful, and high quality, factually correct. Use bullet points, markdown table wherever necessary.
+    template = """Use the following pieces of context to answer the question at the end. Your answer should be very detailed, deep, insighful, and high quality, factually correct. Use bullet points, markdown table wherever necessary.
     If you don't know the answer, just say that you don't know, don't try to make up an answer. 
     {context}
     Question: {question}
@@ -205,7 +205,7 @@ def preparing_benchmarking_agent():
 
 
     prompt = hub.pull("hwchase17/react")
-    agent_prompt_template = '''Write a comprehensive, detailed, deep, insighful, high quality and factually correct answer for the question as best as you can. Present you response in bullets, markdown table whenever applicable.
+    agent_prompt_template = '''Write a very detailed, deep, insighful, high quality and factually correct answer for the question as best as you can. Present you response in bullets, markdown table whenever applicable.
     You have access to the following tools:
 	
 	{tools}
