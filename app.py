@@ -205,7 +205,7 @@ def preparing_benchmarking_agent():
 
 
     prompt = hub.pull("hwchase17/react")
-    agent_prompt_template = '''Write a detailed, deep, insighful, high quality and factually correct answer for the question as best as you can. Always present you response in bullets, markdown table whenever applicable.
+    agent_prompt_template = '''Write a detailed, deep, insighful, high quality and factually correct answer for the question as best as you can. Always present your final answer in bullets and markdown table whenever applicable.
     You have access to the following tools:
 	
 	{tools}
@@ -219,7 +219,7 @@ def preparing_benchmarking_agent():
 	Observation: the result of the action
 	... (this Thought/Action/Action Input/Observation can repeat N times)
 	Thought: I now know the final answer
-	Final Answer: the final answer to the original input question
+	Final Answer: the final answer to the original input question. Your final answer should be detailed, deep, insightful, high quality and should always be in bullets and markdown table whenever applicable.
 	
 	Begin!
 	
