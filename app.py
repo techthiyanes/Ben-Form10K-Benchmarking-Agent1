@@ -25,7 +25,7 @@ st.title("Ben - Form 10K  x  Benchmarking\n\n**powered by GPT-4 Turbo**")
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500&family=Literata:opsz,wght@7..72,500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&display=swap');
     h1, h2, h3, h4, h5, h6, [class^="st-"] {
 			font-family: 'Inter Tight', sans-serif !important;
 			}
@@ -33,6 +33,18 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# st.markdown(
+#     """
+#     <style>
+#     @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500&family=Literata:opsz,wght@7..72,500&display=swap');
+#     h1, h2, h3, h4, h5, h6, [class^="st-"] {
+# 			font-family: 'Exo 2', sans-serif !important;
+# 			}
+#     </style>
+#     """,
+#     unsafe_allow_html=True,
+# )
 
 # # Custom CSS for Streamlit using Google Fonts
 # st.markdown(
