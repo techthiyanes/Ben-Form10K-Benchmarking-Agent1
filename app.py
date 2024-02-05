@@ -27,7 +27,7 @@ st.markdown(
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&display=swap');
     h1, h2, h3, h4, h5, h6, [class^="st-"] {
-			font-family: 'Inter Tight', sans-serif !important;
+			font-family: 'Exo 2', sans-serif !important;
 			}
     </style>
     """,
