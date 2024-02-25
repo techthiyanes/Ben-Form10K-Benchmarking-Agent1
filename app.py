@@ -61,11 +61,11 @@ st.markdown(
 
 
 # Introductory messages and sample questions
-intoductory_message='''Hello, I'm **Ben**—your go-to expert for **Form 10K Benchmarking**!\n\nPowered by GPT-4, I can assist you with **in-depth analysis** and **benchmarking** of annual reports of some of the world's leading tech giants:\n- **Meta**\n- **Amazon**\n- **Alphabet**\n- **Apple**\n- **Microsoft**,\n\nfor the years **2022, 2021, and 2020**.\n\nWhether you are comparing financial performances, exploring trends, or seeking detailed insights across different companies and years, I transform complex data into actionable knowledge. Unlock the power of informed decision-making today with me!'''
+intoductory_message='''Hello, I'm **Ben** — your go-to expert for **Annual Report Insights**!\n\nPowered by GPT-4, I can assist you with **in-depth analysis** and **benchmarking** of annual reports of some of the world's leading tech giants:\n- **Meta**\n- **Amazon**\n- **Alphabet**\n- **Apple**\n- **Microsoft**,\n\nfor the years **2022, 2021, and 2020**.\n\nWhether you are comparing financial performances, exploring trends, or seeking detailed insights across different companies and years, I transform complex data into actionable knowledge. Unlock the power of informed decision-making today with me!'''
 
 
 with st.sidebar:
-    st.error('**Ben- Annual Report Insights**')
+    st.error('**Ben - Annual Report Insights**')
     st.image(Image.open('BenLogo.png'))
     st.warning(intoductory_message)
     
@@ -259,7 +259,7 @@ sample_question_5 = '''Compare the risk factors of Microsoft and Alphabet for 20
 sample_question_6 = '''Compare the covid-19 impact on Apple in 2020, 2021 and 2022? Present your response in table with columns "Impact category", "Key Details-2020", "Key Details-2021, "Key Details-2022", "Changes/Conclusion"'''
 
 with st.chat_message("assistant"):
-    st.write("Hello, I'm **Ben**—your go-to expert for **Annual Report Insights**!")
+    st.write("Hello, I'm **Ben** — your go-to expert for **Annual Report Insights**!")
     # st.image(Image.open('BenLogo.png'))
     # st.write(intoductory_message)
     st.write(f'''Ready to dive in? Here are your starting queries:\n\n🎯 **Basic queries:**''')
