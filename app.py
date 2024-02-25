@@ -17,8 +17,8 @@ from langchain.schema import SystemMessage
 from langchain_core.prompts import PromptTemplate
 
 # Streamlit page configuration
-st.set_page_config(page_title="Form 10K x Benchmarking", page_icon="🦜")
-st.title("Ben - Form 10K  x  Benchmarking\n\n**powered by GPT-4 Turbo**")
+st.set_page_config(page_title="Ben - AR Insights", page_icon="🦜")
+st.title("Ben - Annual Report Insights\n\n**powered by GPT-4 Turbo**")
 
 
 # Custom CSS for Streamlit using Google Fonts
@@ -65,7 +65,7 @@ intoductory_message='''Hello, I'm **Ben**—your go-to expert for **Form 10K Ben
 
 
 with st.sidebar:
-    st.error('**Ben- Form 10K  x  Benchmarking Agent**')
+    st.error('**Ben- Annual Report Insights**')
     st.image(Image.open('BenLogo.png'))
     st.warning(intoductory_message)
     
@@ -259,7 +259,7 @@ sample_question_5 = '''Compare the risk factors of Microsoft and Alphabet for 20
 sample_question_6 = '''Compare the covid-19 impact on Apple in 2020, 2021 and 2022? Present your response in table with columns "Impact category", "Key Details-2020", "Key Details-2021, "Key Details-2022", "Changes/Conclusion"'''
 
 with st.chat_message("assistant"):
-    st.write("Hello, I'm **Ben**—your go-to expert for **Form 10K Benchmarking**!")
+    st.write("Hello, I'm **Ben**—your go-to expert for **Annual Report Insights**!")
     # st.image(Image.open('BenLogo.png'))
     # st.write(intoductory_message)
     st.write(f'''Ready to dive in? Here are your starting queries:\n\n🎯 **Basic queries:**''')
